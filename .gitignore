@@ -1,0 +1,10 @@
+.vscode/
+venv/
+vosk test/model/
+мегафон.mp3
+ссылки про обучение воска и калди.txt
+test.py
+vosk test/data.json
+text-to-phonem test/
+speech_recognition/
+audio_file test/
