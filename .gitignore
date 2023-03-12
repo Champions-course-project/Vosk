@@ -1,6 +1,5 @@
 .vscode/
 venv/
-vosk test/model/
 мегафон.mp3
 ссылки про обучение воска и калди.txt
 test.py
