@@ -1,8 +1,6 @@
 import os
 import json
-import wave
 import vosk_class
-import recorder
 
 os.chdir("vosk test")
 
