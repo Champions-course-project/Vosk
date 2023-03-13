@@ -8,4 +8,6 @@ vosk test/data.json
 text-to-phonem test/
 speech_recognition/
 audio_file test/
-vosk test/__pycache__
+vosk test/__pycache__/
+vosk test/vosk_timer.py
+vosk test/file.wav
