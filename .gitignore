@@ -5,7 +5,9 @@ vosk test/model/
 ссылки про обучение воска и калди.txt
 test.py
 vosk test/data.json
-text-to-phonem test/
+text-to-phonem test/G.txt
+text-to-phonem test/input_file.txt
+text-to-phonem test/lexicon.txt
 speech_recognition/
 audio_file test/
 vosk test/__pycache__/
