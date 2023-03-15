@@ -35,8 +35,12 @@ def wordToPhones(*input_filenames):
     with open("letters_to_phones.json", "r", encoding="UTF-8") as F:
         LTF = json.load(F)
     # get words
-    dict_list = [{"!SIL": ["SIL"]},
-                 {"[unk]": ["GBG"]}]
+
+    # dict_list = [{"!SIL": ["SIL"]},
+    #              {"[unk]": ["GBG"]}]
+    dict_list = {"!SIL": ["SIL"],
+                 "[unk]": ["GBG"]}
+
     for input_filename in input_filenames:
         input_words = try_to_open(input_filename)
 
@@ -90,12 +94,16 @@ def wordToPhones(*input_filenames):
                     replaced = True
             if not replaced:
                 all_options.append(" ".join(phones_base))
-            dict_list.append({input_word: all_options})
+            for word in all_options:
+                try:
+                    dict_list[input_word].append(word)
+                except:
+                    dict_list[input_word] = []
+                    dict_list[input_word].append(word)
     # write everything to an output file
     with open("lexicon.txt", "w", encoding="UTF-8", newline="\n") as OF:
-        for dictionary in dict_list:
-            word = (list)(dictionary.keys())[0]
-            phonems_list = (list)(dictionary.values())[0]
+        for word in dict_list:
+            phonems_list = (set)(dict_list[word])
             for phonems_word in phonems_list:
                 OF.write(f"{word} {phonems_word}\n")
     return
@@ -107,24 +115,28 @@ def create_grammar(input_filename):
     Consider that all words have equal probability of appearance.
     """
     # get input words
-    input_words = ["[unk]"] + try_to_open(input_filename)
+    input_words = try_to_open(input_filename)
     # for every word in the input - write in in a special format
     with open("G.txt", "w", encoding="UTF-8", newline='\n') as OF:
+        ["[unk]", "!SIL"]
+        OF.write("0 1 !SIL !SIL\n")
+        OF.write("0 1 [unk] !SIL\n")
         for word in input_words:
             OF.write(f"0 1 {word} {word}\n")
         OF.write("1 0.0\n")
     return
 
 
-def append_dates_grammar(dates_grammar_filename):
+def append_dates_grammar(*grammar_filenames):
     """
-    Append to a G.txt file dates grammar file.
-    It uses separated graph points.
+    Append to a G.txt file some grammar files.\n
+    They all should use separated graph points, or misuses may happen.
     """
     input_grammar = []
-    with open(dates_grammar_filename, "r", encoding="UTF-8") as F:
-        for line in F:
-            input_grammar.append(line.replace("\n", ""))
+    for filename in grammar_filenames:
+        with open(filename, "r", encoding="UTF-8") as F:
+            for line in F:
+                input_grammar.append(line.replace("\n", ""))
     with open("G.txt", "a", encoding="UTF-8", newline="\n") as OF:
         for line in input_grammar:
             output_line = line.split(" ")
@@ -143,11 +155,17 @@ except (OSError, FileNotFoundError):
 input_file = "input_file.txt"
 dates_input_file = "dates_input.txt"
 dates_grammar_file = "dates_grammar.txt"
+person_status_input_file = "status_input.txt"
+person_status_grammar_file = "status_grammar.txt"
+numeric_input_file = "numbers_input.txt"
+numeric_grammar_file = "numbers_grammar.txt"
 
 try:
-    wordToPhones(input_file, dates_input_file)
+    wordToPhones(input_file, dates_input_file,
+                 numeric_input_file, person_status_input_file)
     create_grammar(input_file)
-    append_dates_grammar(dates_grammar_file)
+    append_dates_grammar(dates_grammar_file,
+                         numeric_grammar_file, person_status_grammar_file)
     pass
 except Exception as ex:
     print("An uncaught exception.")

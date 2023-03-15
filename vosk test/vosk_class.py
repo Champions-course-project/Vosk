@@ -14,7 +14,14 @@ class STT:
         Decode a bytestream using known framerate.\n
         bytestream - simply raw data as a bytes class\n
         framerate - also known as frequency (in Hz)\n
-        Returns dictionary, containing words and final result.
+        Returns dictionary, containing words and final result.\n
+        Data format:\n
+        {"result": [
+            list of dicts with keys 
+                {"conf", "end", "start", "word"}
+            ],
+            "text": simply concat of all words from result with spaces between
+        }
         """
         assert type(bytestream) == bytes, "bytestream should be bytes class"
         assert type(framerate) == int, "framerate should be an integer"
@@ -31,7 +38,14 @@ class STT:
         """
         Decode data written in .wav file.\n
         filename - name of .wav file (with extencion)\n
-        Returns dictionary, containing words and final result.
+        Returns dictionary, containing words and final result.\n
+        Data format:\n
+        {"result": [
+            list of dicts with keys 
+                {"conf", "end", "start", "word"}
+            ],
+            "text": simply concat of all words from result with spaces between
+        }
         """
         assert type(filename) == str, "filename must be string"
         wf = wave.open(filename, "rb")
@@ -43,6 +57,14 @@ class STT:
     def decode():
         """
         Record data and decode it.\n
+        Returns dictionary, containing words and final result.\n
+        Data format:\n
+        {"result": [
+            list of dicts with keys 
+                {"conf", "end", "start", "word"}
+            ],
+            "text": simply concat of all words from result with spaces between
+        }
         """
         raw_data = recorder.Recorder.record_data()
         return STT.decode_bytestream(raw_data, recorder.Recorder.freq)
