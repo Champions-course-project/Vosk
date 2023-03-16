@@ -159,13 +159,15 @@ person_status_input_file = "status_input.txt"
 person_status_grammar_file = "status_grammar.txt"
 numeric_input_file = "numbers_input.txt"
 numeric_grammar_file = "numbers_grammar.txt"
+choose_grammar_file = "choose_grammar.txt"
+choose_input_file = "choose_input.txt"
 
 try:
-    wordToPhones(input_file, dates_input_file,
-                 numeric_input_file, person_status_input_file)
+    wordToPhones(input_file, dates_input_file, numeric_input_file,
+                 person_status_input_file, choose_input_file)
     create_grammar(input_file)
-    append_dates_grammar(dates_grammar_file,
-                         numeric_grammar_file, person_status_grammar_file)
+    append_dates_grammar(dates_grammar_file, numeric_grammar_file,
+                         person_status_grammar_file, choose_grammar_file)
     pass
 except Exception as ex:
     print("An uncaught exception.")
