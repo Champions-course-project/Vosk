@@ -1,6 +1,7 @@
 import os
 import json
 import vosk_class
+import recorder
 
 os.chdir("vosk test")
 
@@ -14,8 +15,10 @@ while True:
 
             try:
                 print("Запись!")
-                result = vosk_class.STT.decode()
+                bytestream = recorder.Recorder.record_data()
                 print("Завершение записи.")
+                result = vosk_class.STT.decode_bytestream(
+                    bytestream, recorder.Recorder.freq)
                 with open("data.json", "w", encoding="UTF-8") as F:
                     json.dump(result, F, ensure_ascii=False, indent=4)
 
