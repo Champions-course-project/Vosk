@@ -2,6 +2,7 @@ import os
 import json
 import vosk_class
 import recorder
+import vosk_functions
 
 os.chdir("vosk test")
 
@@ -23,6 +24,8 @@ while True:
                     json.dump(result, F, ensure_ascii=False, indent=4)
 
                 print("Расшифровано слово: {0}".format(result["text"]))
+                print("Расшифровка от speech: {0}".format(
+                    vosk_functions.speech(bytestream, recorder.Recorder.freq)))
 
             except FileNotFoundError:
                 print("\nОшибка! Файл еще не создан. \nСоздайте файл при помощи другого скрипта и повторите попытку. \nЭто приложение можно не закрывать!\n")
