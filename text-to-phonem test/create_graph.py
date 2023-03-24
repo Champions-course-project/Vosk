@@ -118,7 +118,6 @@ def create_grammar(input_filename):
     input_words = try_to_open(input_filename)
     # for every word in the input - write in in a special format
     with open("G.txt", "w", encoding="UTF-8", newline='\n') as OF:
-        ["[unk]", "!SIL"]
         OF.write("0 1 !SIL !SIL\n")
         OF.write("0 1 [unk] !SIL\n")
         for word in input_words:
