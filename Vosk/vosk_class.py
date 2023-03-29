@@ -1,12 +1,12 @@
 from vosk import Model, KaldiRecognizer, SetLogLevel
 import wave
 import json
-import recorder
+import Vosk.recorder as recorder
 
 
 class STT:
     # named STT so it can be used instead of SpeechRecognition project
-    __model = Model("vosk test\\model")
+    __model = Model("Vosk\\model")
 
     @staticmethod
     def decode_bytestream(bytestream: bytes, framerate: int):

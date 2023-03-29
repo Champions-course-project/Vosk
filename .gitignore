@@ -1,15 +1,15 @@
 .vscode/
 venv/
-vosk test/model/
+Vosk/model/
 мегафон.mp3
 ссылки про обучение воска и калди.txt
 test.py
-vosk test/data.json
+Vosk/data.json
 text-to-phonem test/G.txt
 text-to-phonem test/input_file.txt
 text-to-phonem test/lexicon.txt
 SR/
 audio_file test/
-vosk test/__pycache__/
-vosk test/vosk_timer.py
-vosk test/file.wav
+Vosk/__pycache__/
+Vosk/vosk_timer.py
+Vosk/file.wav
