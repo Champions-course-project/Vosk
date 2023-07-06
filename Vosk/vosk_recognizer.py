@@ -4,7 +4,7 @@ import vosk_class
 import recorder
 import vosk_functions
 
-os.chdir("vosk test")
+os.chdir("Vosk")
 
 FN = "file.wav"
 

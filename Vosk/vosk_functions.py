@@ -1,8 +1,8 @@
-import Vosk.vosk_class as vosk_class
-from .check_name import check
+import vosk_class as vosk_class
+from check_name import check
 import os
 import json
-import Vosk.convert_number as convert_number
+import convert_number as convert_number
 
 
 def speech(bytes_array: bytes, framerate: int):
