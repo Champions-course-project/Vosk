@@ -14,21 +14,21 @@ class Recorder:
     # open stream to write into file
     __p = pyaudio.PyAudio()
 
+    __NewStream = __p.open(rate=freq, channels=__channels, format=__FMT, input=True,
+                           frames_per_buffer=__chunk, start=False)
+
     @staticmethod
     def record_data():
         """
         Record a raw data and return it.
         """
-        NewStream = Recorder.__p.open(rate=Recorder.freq, channels=Recorder.__channels, format=Recorder.__FMT, input=True,
-                                      frames_per_buffer=Recorder.__chunk, start=False)
         # record a batch of frames, each 1024 bytes
         frames = []
-        NewStream.start_stream()
+        Recorder.__NewStream.start_stream()
         for i in range(0, int(Recorder.freq / Recorder.__chunk * Recorder.__rec_len)):
-            data = NewStream.read(Recorder.__chunk)
+            data = Recorder.__NewStream.read(Recorder.__chunk)
             frames.append(data)
-        NewStream.stop_stream()
-        NewStream.close()
+        Recorder.__NewStream.stop_stream()
         raw_data = b''.join(frames)
         return raw_data
 
@@ -45,4 +45,8 @@ class Recorder:
         wb.setframerate(Recorder.freq)
         wb.writeframes(raw_data)
         wb.close()
+        return
+
+    def __del__(self):
+        self.__NewStream.close()
         return
